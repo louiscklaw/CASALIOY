@@ -151,7 +151,7 @@ class Ingester:
 
 def main(sources_directory: str, cleandb: str) -> None:
     """main function"""
-    ingester = Ingester(persist_directory)
+    ingester = Ingester(persist_directory, verbose=True)
     session = PromptSession()
 
     if os.path.exists(ingester.db_dir):

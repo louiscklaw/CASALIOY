@@ -2,6 +2,7 @@
 # Base Image
 ###############################################
 FROM python:3.11-slim as python-base
+
 # We set POETRY_VERSION=1.3.2 because 1.4.x has some weird legacy issues
 # CASALIOY_FORCE_CPU = we install cpu-only pytorch.
 ENV PYTHONFAULTHANDLER=1 \
@@ -20,6 +21,7 @@ RUN apt-get update && apt-get install -y build-essential git htop gdb nano unzip
 #    fi; \
 RUN pip install --upgrade setuptools virtualenv
 
+
 ###############################################
 # Builder Image
 ###############################################
@@ -36,6 +38,7 @@ RUN . .venv/bin/activate && \
     else \
         pip install --force sentence_transformers; \
     fi
+
 
 ###############################################
 # Production Image
