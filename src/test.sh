@@ -17,4 +17,5 @@ set -ex
 
 
 docker compose up -d --build
-docker compose exec -it web bash
+
+docker compose exec -it casaloy-gpu bash

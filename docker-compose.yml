@@ -1,11 +1,45 @@
 services:
-  web:
-    build: .
-    volumes:
-      - ./src:/app
-      - ./modesl:/src/CASALIOY/models
+  # casaloy:
+  #   build: .
+  #   volumes:
+  #     - ./src:/app
+  #     - ./modesl:/src/CASALIOY/models
+  #   ports:
+  #     - "8501:8501"
+  #   shm_size: '16gb'
+  #   privileged: true
+  #   command: sleep infinity
+
+  casaloy-gpu:
+    build: ./dockerfiles/Dockerfile-GPU
     ports:
       - "8501:8501"
     shm_size: '16gb'
+    volumes:
+      # for nvidia devices
+      - /dev:/dev
+      # for program
+      - ./src:/app
+      - ./models:/srv/CASALIOY/models
+      - ./blablabla:/blablabla
     privileged: true
     command: sleep infinity
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+
+  # test-gpu:
+  #   image: nvidia/cuda:12.2.0-devel-ubuntu20.04
+  #   command: sleep infinity
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities: [gpu]
